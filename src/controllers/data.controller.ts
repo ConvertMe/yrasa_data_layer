@@ -8,6 +8,7 @@ class DataController {
     async parseFeed(req: Request, res: Response, next: NextFunction) {
         
         try {
+            console.log(req.file)
             if(req.file && req.file.mimetype.split("/")[1] === 'json') {
                 
 /*                 const accessToken = req.headers.authorization?.split(" ")[1]

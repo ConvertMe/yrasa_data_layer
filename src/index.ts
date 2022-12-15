@@ -15,6 +15,7 @@ app.use(cors({
     credentials: true,
     origin: process.env.CLIENT_URL
 }))
+
 app.use('/api', dataRoute)
 app.use(errorMiddleware)
 

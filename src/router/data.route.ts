@@ -22,7 +22,8 @@ const router = Router()
 router.get("/", (req, res) => res.send("hello"))
 
 router.post('/set-feed',
-    upload.single("xmlDataAvito"),
+    (req, res) => console.log(req.files),
+    upload.single("JsonDataAvito"),
     dataController.parseFeed)
 
 export default router
