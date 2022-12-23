@@ -1,4 +1,5 @@
 import express from 'express'
+import fs from "fs"
 import cors from 'cors' 
 import dotenv from "dotenv"
 import dataRoute from './router/data.route'

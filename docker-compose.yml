@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 1369:1369
+    volumes:
+      - "/home/okmic/Documents/web/prod/yrasa/yrasa_data_layer:/app"
+      - /app/node_modules
+    depends_on:
+      - mysql_server
+      - phpmyadmin
+
+  mysql_server:
+    image: mysql:8.0
+    container_name: mysqlcontainer
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - mysql_data_yrasa_data_layer:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=yrasa_data_layer
+      - MYSQL_USER=yrasa
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1  
+
+volumes:
+  mysql_data_yrasa_data_layer: 
+

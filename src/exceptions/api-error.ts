@@ -8,24 +8,24 @@ export default class ApiError extends Error {
         this.errors = errors
     }
 
-    static BadRequest(message: any, errors: any = []) {
-        return new ApiError(400, message, errors)
+    static ErrorSavedFile(errorCode: string){
+        return new ApiError(400,  {message: "error saved file", errorCode})
     }
 
-    static UnauthorizedError() {
-        return new ApiError(401, "Not auth")
+    static BadRequest(message: any, errorCode: string, errors: any = []) {
+        return new ApiError(400, {message, errorCode}, errors)
     }
 
-    static ErrorDb() {
-        return new ApiError(401, "error db")
+    static UnauthorizedError(errorCode: string) {
+        return new ApiError(401,  {message: "Not auth", errorCode})
     }
 
-    static isForbidden() {
-        return new ApiError(403, "Forbidden")
+    static isForbidden(errorCode: string) {
+        return new ApiError(403, {message: "Forbidden", errorCode})
     }
 
-    static writeFileError() {
-        return new ApiError(403, "Error writed file")
+    static writeFileError(errorCode: string) {
+        return new ApiError(403, {message: "Error writed file", errorCode})
     }
 
 }

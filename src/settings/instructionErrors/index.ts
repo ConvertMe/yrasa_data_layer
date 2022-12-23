@@ -1,0 +1,15 @@
+export default [
+    {id: 1, erroCode: "err1", ep: "/api/set-feed - data/controller", comment: "invalid file or path"},
+    {id: 2, erroCode: "err2", ep: "/api/set-feed - data/controller", comment: "invalid format file"},
+    {id: 3, erroCode: "err3", ep: "/api/set-feed - data/controller", comment: "Not bearer token at headers"},
+    {id: 4, erroCode: "err4", ep: "/api/set-feed - data/controller", comment: "Invalid bearer token"},
+    {id: 5, erroCode: "err5", ep: "/api/set-feed - data/controller", comment: "Error saved file"},
+    {id: 6, erroCode: "err6", ep: "/api/set-feed - data/servive", comment: "Error path file"},
+    {id: 7, erroCode: "err7", ep: "/api/set-feed - data/servive", comment: "Error removed file"},
+    {id: 8, erroCode: "err8", ep: "/api/set-feed - data/servive", comment: "Error removed file"},
+    {id: 9, erroCode: "err9", ep: "/api/set-feed - data/servive", comment: "Error saved file"},
+    {id: 10, erroCode: "err10", ep: "/api/set-feed - data/servive", comment: "invalid data"},  
+    {id: 11, erroCode: "err11", ep: "/api/set-feed - data/servive", comment: "errorsStr"},
+    {id: 12, erroCode: "err12", ep: "/api/set-feed - data/servive", comment: "errorsRefs"},
+    {id: 13, erroCode: "err13", ep: "/api/set-feed - data/servive", comment: "errorsTags"},  
+]
