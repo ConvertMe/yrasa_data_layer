@@ -20,7 +20,8 @@ class DataService {
                 CheackAvitoService.checkKeys(data)
             } catch (e) {
                 if(writeFile?.message.path) fs.unlinkSync(writeFile.message.path)
-                throw ApiError.ErrorSavedFile("err7")
+/*              throw ApiError.ErrorSavedFile("err7") */
+                throw e
             }
 
             return writeFile
@@ -34,17 +35,17 @@ class DataService {
             let pathTofile: null | string = null
 
             if (path) {
-                pathTofile = path.join(__dirname, "..", "data", "avito", `${payload.userId}&${payload.login}&${payload.createdAt}=${v1()}${v1()}.data.json`)
+                pathTofile = path.join(__dirname, "..", "data", "avito", `${payload.userId}&${payload.login}&${payload.service}&${payload.createdAt}=${v1()}${v1()}.data.json`)
                 
                 try {fs.renameSync(payload.path, pathTofile)} 
                 catch(e) {
                     pathTofile = null
                     fs.unlinkSync(payload.path)
-                    throw ApiError.BadRequest("error saved file", "err8")             
+                    throw ApiError.BadRequest("error saved file", ["err8"])             
                 }
 
                 if (!pathTofile) {
-                    throw ApiError.BadRequest("error saved file", "err9")}
+                    throw ApiError.BadRequest("error saved file", ["err9"])}
                 return {
                     message: {
                         path: pathTofile

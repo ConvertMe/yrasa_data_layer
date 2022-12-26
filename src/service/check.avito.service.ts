@@ -12,12 +12,10 @@ class CheackAvitoService {
             let errorsRefs: any[] = []
             let errorsTags: any[] = []
 
-            if(!object) throw ApiError.BadRequest("invalid data", "err10")
-/*             
-            for (let i in JSON.parse(object.Ads)) {
-                console.log(i)
-            } 
-*/
+            if(!object) throw ApiError.BadRequest("invalid data", ["err10"])        
+
+            if(!object.Ads.Ad.length) throw ApiError.BadRequest("Мин. колличество 2", ["err15"])            
+
             object.Ads.Ad.forEach((objXml: any) => {
                 for (let keyXml in objXml) {
 
@@ -26,12 +24,10 @@ class CheackAvitoService {
 
                     sellAvito.forEach((sell) => {
                         if (keyXml === sell.paramName) {
-
                             //check values (refs)
                             if (sell.type === "ref") {
                                 if (!sell.refs!.includes(objXml[keyXml]["_text"])) errorsRefs.push([sell.paramName, objXml[keyXml]["_text"]])
                             }
-
                             //check tags
                             if (sell.type === "tag") {
                                 for (let tag in objXml[keyXml]) {
@@ -43,9 +39,9 @@ class CheackAvitoService {
                 }
             })
 
-            if (errorsStr.length > 0) throw ApiError.BadRequest("Неверно сформирован файл, прочтите инструкцию авито по формированию файла", "err11", errorsStr)
-            if (errorsRefs.length > 0) throw ApiError.BadRequest("Неверно сформирован файл, прочтите инструкцию авито по формированию файла", "err12", errorsRefs)
-            if (errorsTags.length > 0) throw ApiError.BadRequest("Неверно сформирован файл, прочтите инструкцию авито по формированию файла", "err13", errorsTags)
+            if (errorsStr.length > 0) throw ApiError.BadRequest("Неверно сформирован файл, прочтите инструкцию авито по формированию файла errCode: err11", errorsStr)
+            if (errorsRefs.length > 0) throw ApiError.BadRequest("Неверно сформирован файл, прочтите инструкцию авито по формированию файла errCode: err12", errorsRefs)
+            if (errorsTags.length > 0) throw ApiError.BadRequest("Неверно сформирован файл, прочтите инструкцию авито по формированию файла errCode: err13", errorsTags)
             
             return true
         } catch (e) {

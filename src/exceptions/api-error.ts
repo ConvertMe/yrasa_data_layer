@@ -6,26 +6,26 @@ export default class ApiError extends Error {
         super(message)
         this.status = status
         this.errors = errors
+    } 
+
+    static ErrorSavedFile(message: string){
+        return new ApiError(400,  `error saved file ${message}`)
     }
 
-    static ErrorSavedFile(errorCode: string){
-        return new ApiError(400,  {message: "error saved file", errorCode})
+    static BadRequest(message: any, errors: any = []) {
+        return new ApiError(400, message,  errors)
     }
 
-    static BadRequest(message: any, errorCode: string, errors: any = []) {
-        return new ApiError(400, {message, errorCode}, errors)
+    static UnauthorizedError(message: any) {
+        return new ApiError(401,  `Not auth ${message}`)
     }
 
-    static UnauthorizedError(errorCode: string) {
-        return new ApiError(401,  {message: "Not auth", errorCode})
+    static isForbidden(message: any) {
+        return new ApiError(403, `Forbidden ${message}`)
     }
 
-    static isForbidden(errorCode: string) {
-        return new ApiError(403, {message: "Forbidden", errorCode})
-    }
-
-    static writeFileError(errorCode: string) {
-        return new ApiError(403, {message: "Error writed file", errorCode})
+    static writeFileError(message: any) {
+        return new ApiError(403, `Error writed file ${message}`)
     }
 
 }
