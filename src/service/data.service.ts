@@ -35,9 +35,25 @@ class DataService {
             let pathTofile: null | string = null
 
             if (path) {
+
                 pathTofile = path.join(__dirname, "..", "data", "avito", `${payload.userId}&${payload.login}&${payload.service}&${payload.createdAt}=${v1()}${v1()}.data.json`)
-                
-                try {fs.renameSync(payload.path, pathTofile)} 
+
+
+                try {
+                    let removed = false
+
+                    let fd = fs.readdirSync(path.join(__dirname, "..", "data", "avito"))
+
+                    const regular = new RegExp(`${payload.userId}&${payload.login}&${payload.service}&${payload.createdAt}*`)
+
+                    fd.forEach((e, i) => {
+                            if(regular.test(e)) fs.unlinkSync(path.join(__dirname, "..", "data", "avito", e))
+                            if(i === fd.length - 1)
+                            removed = true
+                    })
+
+                    fs.renameSync(payload.path, pathTofile)
+                } 
                 catch(e) {
                     pathTofile = null
                     fs.unlinkSync(payload.path)

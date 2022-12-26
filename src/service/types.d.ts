@@ -5,3 +5,9 @@ export interface PayloadDataI {
     service: string
     createdAt: string
 }
+
+export interface userDateI {
+    userId: string
+    login: string
+    service: string
+}

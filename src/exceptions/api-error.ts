@@ -8,6 +8,10 @@ export default class ApiError extends Error {
         this.errors = errors
     } 
 
+    static SomethingWentWrong(err: any){
+        return new ApiError(500, "Something went wrong", err)
+    }
+
     static ErrorSavedFile(message: string){
         return new ApiError(400,  `error saved file ${message}`)
     }

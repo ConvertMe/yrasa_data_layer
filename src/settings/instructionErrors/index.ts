@@ -14,5 +14,7 @@ export default [
     {id: 13, erroCode: "err13", ep: "/api/set-feed - auth/midleware", comment: "invalid token"},  
     {id: 14, erroCode: "err14", ep: "/api/set-feed - auth/midleware", comment: "not auth"},  
     {id: 15, erroCode: "err15", ep: "/api/set-feed - data/service", comment: "obj.Ads.Ad is object"},
-    {id: 16, erroCode: "err15", ep: "/api/set-feed - data/controler", comment: "invalid body req"},  
+    {id: 16, erroCode: "err16", ep: "/api/set-feed - data/controler", comment: "invalid body req"},
+    {id: 17, erroCode: "err17", ep: "/api/get-feed - getData/service", comment: "Error get date"},
+    {id: 18, erroCode: "err18", ep: "/api/get-feed - getData/service", comment: "Error get date"},      
 ]

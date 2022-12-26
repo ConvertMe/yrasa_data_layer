@@ -1,9 +1,11 @@
 import { Request, Response, NextFunction } from "express"
+import { validationResult } from "express-validator"
 import fs from "fs"
-import path from "path"
+import { responseToClient } from "../auxiliary/response"
 import ApiError from "../exceptions/api-error"
 import DataService from '../service/data.service'
-import { PayloadDataI } from "../service/types"
+import getDateService from "../service/getDate.service"
+import { PayloadDataI, userDateI } from "../service/types"
 
 class DataController {
 
@@ -28,11 +30,6 @@ class DataController {
 
             const { userId, login, service, createdAt } = req.body
 
-            fs.readdir(path.join(__dirname, "..", "data", "avito"), (err, fd) => {
-                const regular = new RegExp(`/${userId}&${login}&${service}&${createdAt}`)
-                fd.forEach(item => console.log(regular.test(item)))
-              })
-
 
             const payload: PayloadDataI = {
                 path: req.file.path,
@@ -43,13 +40,32 @@ class DataController {
 
 
             if (saveFile) {
-                return res.status(200).json(saveFile)
+                return responseToClient(200, saveFile, res)
             } else {
                 fs.unlinkSync(req.file.path)
                 return next(ApiError.ErrorSavedFile("err5"))
             }
         }
         catch (e) {
+            next(e)
+        }
+    }
+
+    async getAll (req: Request, res: Response, next: NextFunction) {
+
+        try {
+
+            const errors = validationResult(req)
+    
+            if(!errors.isEmpty()) {
+                return next(ApiError.BadRequest("Invalid value", errors.array()))
+            }
+    
+            const {userId, login, service} = req.query
+    
+            //@ts-ignore
+            return responseToClient(200, await getDateService.getAll({userId, login, service}), res)
+        } catch (e) {
             next(e)
         }
     }
