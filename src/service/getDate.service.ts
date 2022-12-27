@@ -4,7 +4,7 @@ import ApiError from "../exceptions/api-error"
 import { userDateI } from "./types"
 
 
-class GetDate {
+class GetData {
 
     async getAll(userDate: userDateI) {
         try {
@@ -17,8 +17,17 @@ class GetDate {
             fd.forEach((e) => {
                 if(regular.test(e)) pathToFile = e
             })
-            if(pathToFile) return  await this.readFile(path.join(__dirname, "..", "data", "avito", pathToFile))
+            if(pathToFile) {
+                const data = await this.readFile(path.join(__dirname, "..", "data", "avito", pathToFile))
+                if(userDate.limitAndPage) {
+                    let [limit, page] = userDate.limitAndPage
 
+                return this.paginate(data, page, limit)
+
+                } else return data
+            }
+
+            throw ApiError.BadRequest("invalid user data", ["err19"])
         } catch (e) {
             throw e
         }
@@ -33,7 +42,25 @@ class GetDate {
             throw ApiError.SomethingWentWrong(["err18"])
           }
     }
+
+    private paginate = (items: any[], page = 1, perPage = 10) => {
+        try {
+            const offset = perPage * (page - 1)
+            const totalPages = Math.ceil(items.length / perPage)
+            const paginatedItems = items.slice(offset, perPage * page)
+          
+            return {
+                previousPage: page - 1 ? page - 1 : null,
+                nextPage: (totalPages > page) ? page + 1 : null,
+                total: items.length,
+                currentPage: totalPages,
+                items: paginatedItems
+            }
+        } catch (e) {
+            throw ApiError.SomethingWentWrong("err20")
+        }
+    }
 }
 
 
-export default new GetDate()
+export default new GetData()

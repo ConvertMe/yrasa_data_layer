@@ -54,7 +54,6 @@ class DataController {
     async getAll (req: Request, res: Response, next: NextFunction) {
 
         try {
-
             const errors = validationResult(req)
     
             if(!errors.isEmpty()) {
@@ -62,9 +61,11 @@ class DataController {
             }
     
             const {userId, login, service} = req.query
-    
+            let limitAndPage: null | any[] = null
+            if(req.query.limit && req.query.page) limitAndPage = [Number(req.query.limit), Number(req.query.page)]
+
             //@ts-ignore
-            return responseToClient(200, await getDateService.getAll({userId, login, service}), res)
+            return responseToClient(200, await getDateService.getAll({userId, login, service, limitAndPage}), res)
         } catch (e) {
             next(e)
         }

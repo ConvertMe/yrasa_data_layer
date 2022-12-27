@@ -17,4 +17,6 @@ export default [
     {id: 16, erroCode: "err16", ep: "/api/set-feed - data/controler", comment: "invalid body req"},
     {id: 17, erroCode: "err17", ep: "/api/get-feed - getData/service", comment: "Error get date"},
     {id: 18, erroCode: "err18", ep: "/api/get-feed - getData/service", comment: "Error get date"},      
+    {id: 19, erroCode: "err19", ep: "/api/get-feed - getData/service", comment: "Invalid data user at req"},
+    {id: 20, erroCode: "err20", ep: "/api/get-feed - getData/service", comment: "Error paginate"}, 
 ]

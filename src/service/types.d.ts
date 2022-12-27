@@ -10,4 +10,5 @@ export interface userDateI {
     userId: string
     login: string
     service: string
+    limitAndPage?: number[]
 }
