@@ -1,13 +1,12 @@
 import fs from "fs"
 import path from "path"
 import { v1 } from "uuid"
-import CheackAvitoService from "./check.avito.service"
-import ApiError from "../exceptions/api-error"
-import { PayloadDataI } from "./types"
-import { check } from "express-validator"
+import CheackAvitoService from "./check.service"
+import ApiError from "../../exceptions/api-error"
+import { PayloadDataI } from "../types"
 
 
-class DataService {
+class SaveService {
 
     async checkAndSave(payload: PayloadDataI) {
         try {
@@ -75,4 +74,4 @@ class DataService {
 
 }
 
-export default new DataService()
+export default new SaveService()

@@ -2,7 +2,7 @@ import { Router, Request } from 'express'
 import { query } from "express-validator"
 import multer from 'multer'
 import path from 'path'
-import dataController from '../controllers/data.controller'
+import saveController from '../controllers/avito_apart_new_building/save.controller'
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req: Request, file: any, cb: any) => {
@@ -19,12 +19,12 @@ const router = Router()
 
 router.post('/set-feed',
     upload.single("JsonDataAvito"),
-    dataController.parseFeed)
+    saveController.parseFeed)
 
 router.get('/get-feed',
     query("userId").isLength({ min: 1, max: 5 }),
     query("login").isLength({ min: 1, max: 50 }),
     query("service").isLength({ min: 1, max: 50 }),
-    dataController.getAll)
+    saveController.getAll)
 
 export default router

@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express"
 import { validationResult } from "express-validator"
 import fs from "fs"
-import { responseToClient } from "../auxiliary/response"
-import ApiError from "../exceptions/api-error"
-import DataService from '../service/data.service'
-import getDateService from "../service/getDate.service"
-import { PayloadDataI, userDateI } from "../service/types"
+import { responseToClient } from "../../auxiliary/response"
+import ApiError from "../../exceptions/api-error"
+import SaveService from '../../service/avito_apart_new_building/save.service'
+import getDateService from "../../service/avito_apart_new_building/get.date.service"
+import { PayloadDataI, userDateI } from "../../service/types"
 
 class DataController {
 
@@ -36,7 +36,7 @@ class DataController {
                 userId, login, service, createdAt
             }
 
-            const saveFile = await DataService.checkAndSave(payload).then(res => res)
+            const saveFile = await SaveService.checkAndSave(payload).then(res => res)
 
 
             if (saveFile) {

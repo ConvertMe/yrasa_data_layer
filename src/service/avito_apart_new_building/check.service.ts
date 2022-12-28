@@ -1,5 +1,5 @@
-import ApiError from "../exceptions/api-error"
-import sellAvito from "../settings/avito/sell.new.building.avito"
+import ApiError from "../../exceptions/api-error"
+import sellAvito from "../../settings/avito/sell.new.building.avito"
 
 
 class CheackAvitoService {

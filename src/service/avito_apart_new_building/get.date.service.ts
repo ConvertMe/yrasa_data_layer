@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
-import ApiError from "../exceptions/api-error"
-import { userDateI } from "./types"
+import ApiError from "../../exceptions/api-error"
+import { userDateI } from "../types"
 
 
 class GetData {
