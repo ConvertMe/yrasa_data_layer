@@ -10,7 +10,7 @@ class GetData {
         try {
             let pathToFile: string | null = null
 
-            let fd = fs.readdirSync(path.join(__dirname, "..", "data", "avito"))
+            let fd = fs.readdirSync(path.join(__dirname, "..", "..", "data", "avito"))
     
             const regular = new RegExp(`${userDate.userId}&${userDate.login}&${userDate.service}*`)
     
@@ -18,7 +18,7 @@ class GetData {
                 if(regular.test(e)) pathToFile = e
             })
             if(pathToFile) {
-                const data = await this.readFile(path.join(__dirname, "..", "data", "avito", pathToFile))
+                const data = await this.readFile(path.join(__dirname, "..", "..", "data", "avito", pathToFile))
                 if(userDate.limitAndPage) {
                     let [limit, page] = userDate.limitAndPage
 

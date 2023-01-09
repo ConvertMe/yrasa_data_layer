@@ -12,7 +12,7 @@ class DataController {
     async parseFeed(req: Request, res: Response, next: NextFunction) {
 
         try {
-            if(!req.body || !req.body.userId || !req.body.login || !req.body.service || !req.body.createdAt) {
+            if(!req.body || !req.body.userId || !req.body.login || !req.body.service) {
                 if(req.file?.path) fs.unlinkSync(req.file.path)
                 return next(ApiError.BadRequest("Invalid values", ["err16"]))
             }
@@ -28,12 +28,13 @@ class DataController {
 
             if(!accessToken || accessToken !== process.env.ACCESS_SECRET_KEY) return next(ApiError.UnauthorizedError("err4"))
 
-            const { userId, login, service, createdAt } = req.body
+            const { userId, login, service } = req.body
 
 
             const payload: PayloadDataI = {
                 path: req.file.path,
-                userId, login, service, createdAt
+                userId, login, service, 
+                createdAt: new Date().toISOString().slice(0, 19).replace('T', '/').replace(":", "_").replace(":", "_") 
             }
 
             const saveFile = await SaveService.checkAndSave(payload).then(res => res)
