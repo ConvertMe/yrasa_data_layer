@@ -32,4 +32,12 @@ export default class ApiError extends Error {
         return new ApiError(403, `Error writed file ${message}`)
     }
 
+    static ErrorReadFile(message: any) {
+        return new ApiError(403, `Error read file ${message}`)
+    }
+
+    static ErrorUpdateFile(message: any) {
+        return new ApiError(403, `Error updated file ${message}`)
+    }
+
 }

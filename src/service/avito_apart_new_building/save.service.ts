@@ -14,11 +14,11 @@ class SaveService {
             const writeFile = await this.save(payload)
 
             try {
-                if(!writeFile?.message.path) throw ApiError.ErrorSavedFile("err6")
-                const data = fs.readFileSync(writeFile.message.path, 'utf8')
+                if(!writeFile?.message) throw ApiError.ErrorSavedFile("err6")
+                const data = fs.readFileSync(writeFile.message, 'utf8')
                 CheackAvitoService.checkKeys(data)
             } catch (e) {
-                if(writeFile?.message.path) fs.unlinkSync(writeFile.message.path)
+                if(writeFile?.message) fs.unlinkSync(writeFile.message)
 /*              throw ApiError.ErrorSavedFile("err7") */
                 throw e
             }
@@ -37,20 +37,18 @@ class SaveService {
 
                 pathTofile = path.join(__dirname, "..", "..", "data", "avito", `${payload.userId}&${payload.login}&${payload.service}&${payload.createdAt}=${v1()}${v1()}.data.json`)
 
-
                 try {
                     let removed = false
 
                     let fd = fs.readdirSync(path.join(__dirname, "..", "..", "data", "avito"))
-
-                    const regular = new RegExp(`${payload.userId}&${payload.login}&${payload.service}&${payload.createdAt}*`)
+                    
+                    const regular = new RegExp(`${payload.userId}&${payload.login}&${payload.service}*`)
 
                     fd.forEach((e, i) => {
                             if(regular.test(e)) fs.unlinkSync(path.join(__dirname, "..", "..", "data", "avito", e))
                             if(i === fd.length - 1)
                             removed = true
                     })
-
                     fs.renameSync(payload.path, pathTofile)
                 } 
                 catch(e) {
@@ -62,9 +60,7 @@ class SaveService {
                 if (!pathTofile) {
                     throw ApiError.BadRequest("error saved file", ["err9"])}
                 return {
-                    message: {
-                        path: pathTofile
-                    }
+                    message: pathTofile
                 }
             }
         } catch (e) {

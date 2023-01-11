@@ -6,7 +6,7 @@ export default [
     {id: 5, erroCode: "err5", ep: "/api/set-feed - data/controller", comment: "Error saved file"},
     {id: 6, erroCode: "err6", ep: "/api/set-feed - data/servive", comment: "Error path file"},
     {id: 7, erroCode: "err7", ep: "/api/set-feed - data/servive", comment: "Error removed file"},
-    {id: 8, erroCode: "err8", ep: "/api/set-feed - data/servive", comment: "Error removed file"},
+    {id: 8, erroCode: "err8", ep: "/api/set-feed - avito/save/servive", comment: "Error saved file"},
     {id: 9, erroCode: "err9", ep: "/api/set-feed - data/servive", comment: "Error saved file"},
     {id: 10, erroCode: "err10", ep: "/api/set-feed - check/servive", comment: "invalid data"},  
     {id: 11, erroCode: "err11", ep: "/api/set-feed - check/servive", comment: "errorsStr"},
@@ -18,5 +18,9 @@ export default [
     {id: 17, erroCode: "err17", ep: "/api/get-feed - getData/service", comment: "Error get date"},
     {id: 18, erroCode: "err18", ep: "/api/get-feed - getData/service", comment: "Error get date"},      
     {id: 19, erroCode: "err19", ep: "/api/get-feed - getData/service", comment: "Invalid data user at req"},
-    {id: 20, erroCode: "err20", ep: "/api/get-feed - getData/service", comment: "Error paginate"}, 
-]
+    {id: 20, erroCode: "err20", ep: "/api/get-feed - getData/service", comment: "Error paginate"},
+    {id: 21, erroCode: "err21", ep: "/api/update-feed - avito/update/service", comment: "Invalid req body or path to file"}, 
+    {id: 22, erroCode: "err22", ep: "/api/update-feed - avito/update/service", comment: "Error read file"},
+    {id: 23, erroCode: "err23", ep: "/api/update-feed - avito/update/service", comment: "Error read file return error at module"},
+    {id: 24, erroCode: "err24", ep: "/api/update-feed - avito/update/service", comment: "Error updated date objects"}, 
+] 

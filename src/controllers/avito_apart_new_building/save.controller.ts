@@ -34,7 +34,7 @@ class DataController {
             const payload: PayloadDataI = {
                 path: req.file.path,
                 userId, login, service, 
-                createdAt: new Date().toISOString().slice(0, 19).replace('T', '/').replace(":", "_").replace(":", "_") 
+                createdAt: new Date().toISOString().slice(0, 19).replace('T', '_').replace(":", "-").replace(":", "-") 
             }
 
             const saveFile = await SaveService.checkAndSave(payload).then(res => res)

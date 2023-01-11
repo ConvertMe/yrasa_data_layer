@@ -2,6 +2,31 @@ interface AvitoJKeyI {
     _text: string
 }
 
+interface AttrImageI {
+    Image: {    
+            "_attributes": {
+            url: string
+            }
+            }[]
+
+}
+
+export interface FileAvitoI {
+    "_declaration": {
+        "_attributes": {
+            version: string
+            encoding: string
+        }
+    }
+    Ads: {
+        "_attributes": {
+            formatVersion: string
+            target: string
+        }
+        Ad: AvitoFeedI[]
+    }
+}
+
 export interface AvitoFeedI {
     Id: AvitoJKeyI
     DateBegin?: AvitoJKeyI
@@ -12,7 +37,7 @@ export interface AvitoFeedI {
     ManagerName?: AvitoJKeyI
     ContactPhone?: AvitoJKeyI
     Description: AvitoJKeyI
-    Images?: {Option: AvitoJKeyI[]}
+    Images?: AttrImageI
     VideoUR?: AvitoJKeyI
     ContactMethod?: AvitoJKeyI
     Category: AvitoJKeyI

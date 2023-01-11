@@ -3,7 +3,9 @@ import cors from 'cors'
 import dotenv from "dotenv"
 import swaggerUI from "swagger-ui-express"
 import swaggerJsDoc from "swagger-jsdoc"
-import dataRoute from './router/data.route'
+import avitoSaveRoute from './router/avito.save.route'
+import avitoGetRoute from './router/avito.get.route'
+import avitoUpdateRoute from './router/avito.update.route'
 import errorMiddleware from "./midlewares/error-middleware"
 import path from 'path'
 
@@ -13,9 +15,9 @@ const options = {
 	definition: {
 		openapi: "3.0.0",
 		info: {
-			title: "Library API",
+			title: "Yrasa Data Layer",
 			version: "1.0.0",
-			description: "A simple Express Library API",
+			description: "Docs API",
 		},
 		servers: [
 			{
@@ -40,7 +42,9 @@ app.use(cors({
     origin: process.env.CLIENT_URL
 }))
 
-app.use('/api', dataRoute)
+app.use('/api', avitoSaveRoute)
+app.use('/api', avitoGetRoute)
+app.use('/api', avitoUpdateRoute)
 app.use(errorMiddleware)
 
 const start = () => {
