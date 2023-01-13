@@ -73,12 +73,10 @@ import updateController from '../controllers/avito_apart_new_building/update.con
  *                 status:
  *                   type: integer
  *                   example: 200
- *                 values:
- *                   type: object
- *                   properties:
- *                     message:
- *                       type: string
- *                       example: "data has been changed"
+ *                 message:
+ *                   type: string
+ *                   example: "data has been changed"
+ *                     
 */
 
 const router = Router()

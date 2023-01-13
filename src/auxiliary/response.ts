@@ -3,7 +3,7 @@ import { Response } from "express"
 export function responseToClient(status: number = 200, values: any, res: Response){
     const data = {
         "status": status,
-        "values": values
+        "message": values
     }
 
     res.status(data.status)

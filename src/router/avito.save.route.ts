@@ -64,12 +64,9 @@ import saveController from '../controllers/avito_apart_new_building/save.control
  *                 status:
  *                   type: integer
  *                   example: 200
- *                 values:
- *                   type: object
- *                   properties:
- *                     message:
- *                       type: string
- *                       example: "ecdsa37a30-ds90f4-11dsed-aads9c-6355b04f8ed7ecdsa37a31-90f4-11ed-aa9c-6355b04f8ed7.data.json"
+ *                 message:
+ *                   type: string
+ *                   example: "ecdsa37a30-ds90f4-11dsed-aads9c-6355b04f8ed7ecdsa37a31-90f4-11ed-aa9c-6355b04f8ed7.data.json"
  *                    
  *                   
 */

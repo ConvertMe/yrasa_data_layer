@@ -23,4 +23,11 @@ export default [
     {id: 22, erroCode: "err22", ep: "/api/update-feed - avito/update/service", comment: "Error read file"},
     {id: 23, erroCode: "err23", ep: "/api/update-feed - avito/update/service", comment: "Error read file return error at module"},
     {id: 24, erroCode: "err24", ep: "/api/update-feed - avito/update/service", comment: "Error updated date objects"}, 
+    {id: 25, erroCode: "err25", ep: "/api/update-feed - avito/update/service", comment: "Error updated date objects"}, 
+    {id: 26, erroCode: "err26", ep: "/api/update-feed - avito/update/service", comment: "Error wrated data"}, 
+    {id: 27, erroCode: "err27", ep: "/api/update-feed - avito/check/service", comment: "Error cheking"},
+    {id: 28, erroCode: "err28", ep: "/api/update-feed - avito/update/service", comment: "Error cheking"},
+    {id: 29, erroCode: "err29", ep: "/api/update-feed - avito/cheack/service", comment: "Error cheking"},
+    {id: 30, erroCode: "err30", ep: "/api/update-feed - avito/cheack/service", comment: "Error cheking values"},
+    {id: 31, erroCode: "err31", ep: "/api/update-feed - avito/cheack/service", comment: "invalid tegs"},
 ] 

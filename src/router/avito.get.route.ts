@@ -12,7 +12,7 @@ import saveController from '../controllers/avito_apart_new_building/save.control
  *         status:
  *           type: integer
  *           example: 200
- *         values: 
+ *         message: 
  *           type: object
  *           properties:
  *             previousPage:

@@ -14,11 +14,11 @@ class SaveService {
             const writeFile = await this.save(payload)
 
             try {
-                if(!writeFile?.message) throw ApiError.ErrorSavedFile("err6")
-                const data = fs.readFileSync(writeFile.message, 'utf8')
+                if(!writeFile) throw ApiError.ErrorSavedFile("err6")
+                const data = fs.readFileSync(writeFile, 'utf8')
                 CheackAvitoService.checkKeys(data)
             } catch (e) {
-                if(writeFile?.message) fs.unlinkSync(writeFile.message)
+                if(writeFile) fs.unlinkSync(writeFile)
 /*              throw ApiError.ErrorSavedFile("err7") */
                 throw e
             }
@@ -59,9 +59,7 @@ class SaveService {
 
                 if (!pathTofile) {
                     throw ApiError.BadRequest("error saved file", ["err9"])}
-                return {
-                    message: pathTofile
-                }
+                return  pathTofile
             }
         } catch (e) {
             throw e

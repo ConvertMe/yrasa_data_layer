@@ -1,8 +1,9 @@
 import fs from "fs"
 import path from "path"
-import {AvitoFeedI, FileAvitoI} from "../../settings/types"
+import {FileAvitoI} from "../../settings/types"
 import { ReqUpdateAvitoType, UpdateAvitoValuesType } from "../../controllers/types"
 import ApiError from "../../exceptions/api-error"
+import checkService from "./check.service"
 
 
 
@@ -10,25 +11,38 @@ class UpdateData {
 
     async update(paramsUpdate: ReqUpdateAvitoType) {
         try {
-            if(!paramsUpdate || !paramsUpdate.pathToFile) throw ApiError.BadRequest("Invalid path", "err 21")
+
+
+            if(!paramsUpdate || !paramsUpdate.pathToFile) throw ApiError.BadRequest("Invalid path", "err21")
             let json: null | string = null
+
+            if(!checkService.checkReqUpdateValues(paramsUpdate)) throw ApiError.BadRequest("Invalid values", "err28")
 
             try {
                 json = fs.readFileSync(paramsUpdate.pathToFile, "utf-8")
             } catch (e) {
-                throw ApiError.ErrorReadFile("err 22")
+                throw ApiError.ErrorReadFile("err22")
             }
             
-            if(!json) throw ApiError.ErrorReadFile("err 23")
+            if(!json) throw ApiError.ErrorReadFile("err23")
 
-            let obj = JSON.parse(json)
-            //@ts-ignore
-            console.log(this.updateObject(obj, paramsUpdate).newData.Ads.Ad[0].Images?.Image)
+            let resultObj: null | {newData: FileAvitoI, dataWasBeenChanged: string[]} = null
 
-/* 
-            const resultObj = JSON.stringify(obj)
-            fs.writeFileSync(__dirname + "/test.json", resultObj)
-            console.log(fs.readFileSync(__dirname + "/test.json", "utf-8")) */
+            try {
+                resultObj = this.updateObject(JSON.parse(json), paramsUpdate)
+            } catch (e) {
+                throw e
+            }
+
+            if(!resultObj) throw ApiError.ErrorUpdateFile("err25")
+
+            try {
+                fs.writeFileSync(paramsUpdate.pathToFile, JSON.stringify(resultObj.newData))
+            } catch (e) {
+                throw ApiError.ErrorSavedFile("err26")
+            }
+
+            return "data has been changed"
         } catch (e) {
             throw e
         }
@@ -56,9 +70,15 @@ class UpdateData {
                                         //if attribute to find key and push new values
                                         //@ts-ignore
                                         for (let iTeg = 0; iTeg <  newData.Ads.Ad[i][key][upValues.teg].length; iTeg++) {
-
+                                            //images has atrr
                                             //@ts-ignore
-                                            newData.Ads.Ad[i][key][upValues.teg][iTeg]["_attributes"][upValues.attr]
+                                            if(upValues.key === "Images") {
+                                                //@ts-ignore
+                                                newData.Ads.Ad[i][key][upValues.teg][iTeg]["_attributes"][upValues.attr] = upValues.values[iTeg]
+                                            } else {
+                                                //@ts-ignore
+                                                newData.Ads.Ad[i][key][upValues.teg][iTeg][upValues.attr]["_text"] = upValues.values[iTeg]
+                                            }
                                             dataWasBeenChanged.push(upValues.values[iTeg])
                                         }
 
@@ -72,8 +92,6 @@ class UpdateData {
                     }
                 }
             })
-
-
 
             return {newData, dataWasBeenChanged}
         } catch (e) {

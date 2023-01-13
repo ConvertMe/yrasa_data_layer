@@ -8,7 +8,6 @@ interface AttrImageI {
             url: string
             }
             }[]
-
 }
 
 export interface FileAvitoI {
