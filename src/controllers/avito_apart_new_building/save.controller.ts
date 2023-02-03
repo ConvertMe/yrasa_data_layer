@@ -14,7 +14,7 @@ class DataController {
         try {
             if(!req.body || !req.body.userId || !req.body.login || !req.body.service) {
                 if(req.file?.path) fs.unlinkSync(req.file.path)
-                return next(ApiError.BadRequest("Invalid values", ["err16"]))
+                return next(ApiError.BadRequest("Invalid values userId, login, service", ["err16"]))
             }
 
             if (!req.file || !req.file.path) return next(ApiError.BadRequest("Invalid file", ["err1"]))
@@ -66,7 +66,7 @@ class DataController {
             if(req.query.limit && req.query.page) limitAndPage = [Number(req.query.limit), Number(req.query.page)]
 
             //@ts-ignore
-            return responseToClient(200, await getDateService.getAll({userId, login, service, limitAndPage}), res)
+            return responseToClient(200, await getDateService.getById({userId, login, service, limitAndPage}, "xjfdge4735202"), res)
         } catch (e) {
             next(e)
         }

@@ -2,11 +2,46 @@ import fs from "fs"
 import path from "path"
 import ApiError from "../../exceptions/api-error"
 import { userDateI } from "../types"
+import filtersService from "./filters.service"
 
 
 class GetData {
 
     async getAll(userDate: userDateI) {
+        try {
+            const data = await this.getDate(userDate)
+
+            if(userDate.limitAndPage) {
+                let [limit, page] = userDate.limitAndPage
+
+            return this.paginate(data, page, limit)
+
+            } else return this.paginate(data)
+
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async getById(userDate: userDateI, filters: any) {
+        try {
+            const data = await this.getDate(userDate)
+
+            const newData = filtersService.byId(data, filters)
+
+            if(userDate.limitAndPage) {
+                let [limit, page] = userDate.limitAndPage
+
+            return this.paginate(newData, page, limit)
+
+            } else return this.paginate(data)
+            
+        } catch (e) {
+            throw e
+        }
+    }
+
+    private async getDate(userDate: userDateI) {
         try {
             let pathToFile: string | null = null
 
@@ -18,13 +53,7 @@ class GetData {
                 if(regular.test(e)) pathToFile = e
             })
             if(pathToFile) {
-                const data = await this.readFile(path.join(__dirname, "..", "..", "data", "avito", pathToFile))
-                if(userDate.limitAndPage) {
-                    let [limit, page] = userDate.limitAndPage
-
-                return this.paginate(data, page, limit)
-
-                } else return data
+                return await this.readFile(path.join(__dirname, "..", "..", "data", "avito", pathToFile))
             }
 
             throw ApiError.BadRequest("invalid user data", ["err19"])

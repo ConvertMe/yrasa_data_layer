@@ -1,8 +1,6 @@
 import { ReqUpdateAvitoType, UpdateAvitoValuesType } from "../../controllers/types"
 import ApiError from "../../exceptions/api-error"
 import sellAvito from "../../settings/avito/sell.new.building.avito"
-import { FileAvitoI } from "../../settings/types"
-
 
 class CheackAvitoService {
 
@@ -34,7 +32,6 @@ class CheackAvitoService {
                             if (sell.type === "ref") {
                                 if (!sell.refs!.includes(objXml[keyXml]["_text"])) errorsRefs.push([sell.paramName, objXml[keyXml]["_text"]])
                             }
-
                         }
                     })
                 }
