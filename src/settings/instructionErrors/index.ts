@@ -30,4 +30,5 @@ export default [
     {id: 29, erroCode: "err29", errorCode: "/api/update-feed - avito/cheack/service", comment: "Error cheking"},
     {id: 30, erroCode: "err30", errorCode: "/api/update-feed - avito/cheack/service", comment: "Error cheking values"},
     {id: 31, erroCode: "err31", errorCode: "/api/update-feed - avito/cheack/service", comment: "invalid tegs"},
+    {id: 32, erroCode: "err32", errorCode: "/api/get-feed - avito/filters/service", comment: "invalid keys filter"},
 ] 

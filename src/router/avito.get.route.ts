@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { query } from "express-validator"
+import { body } from "express-validator"
 import saveController from '../controllers/avito_apart_new_building/save.controller'
 
 /**
@@ -32,6 +32,49 @@ import saveController from '../controllers/avito_apart_new_building/save.control
  *               items:
  *                 type: string
  *                 example: object avito feed{}
+ *     bodyGetFeed:
+ *      type: object
+ *      required:
+ *        - userId
+ *        - login
+ *        - service
+ *      properties:
+ *        userId:
+ *          type: integer
+ *          example: 1
+ *        login:
+ *          type: string
+ *          example: user login
+ *        service:
+ *          type: string
+ *          example: service
+ *        page:
+ *          type: integer
+ *          example: 1  
+ *        limit:
+ *          type: integer
+ *          example: 10
+ *        filters:
+ *          type: object
+ *          properties:
+ *            byArgument:
+ *              type: array
+ *              items:
+ *                type: array
+ *                items:
+ *                  oneOf:
+ *                    - type: string
+ *                    - type: string
+ *            minMax:
+ *              type: array
+ *              items:
+ *                type: array
+ *                items:
+ *                  oneOf:
+ *                    - type: string
+ *                    - type: integer
+ *                    - type: integer
+ *        
  */
 
 /**
@@ -39,43 +82,20 @@ import saveController from '../controllers/avito_apart_new_building/save.control
   * tags:
   *   name: avito-feed
   *   description: Data set
-  */
+*/
 
 /**
 * @swagger
 * /api/get-feed:
-*  get:
+*  post:
 *     summary: Get date
 *     tags: [avito-feed]
-*     parameters:
-*       - in: path
-*         name: userId
-*         schema:
-*           type: string
-*         required: true
-*         description: user userId
-*       - in: path
-*         name: login
-*         schema:
-*           type: string
-*         required: true
-*         description: user login
-*       - in: path
-*         name: service
-*         schema:
-*           type: string
-*         required: true
-*         description: service
-*       - in: path
-*         name: page
-*         schema:
-*           type: string
-*         description: page number
-*       - in: path
-*         name: limit
-*         schema:
-*           type: string
-*         description: limit elements
+*     requestBody:
+*       required: true
+*       content:
+*         application/json;charset=UTF-8:
+*           schema:
+*             $ref: '#/components/schemas/bodyGetFeed'
 *     responses:
 *       200:
 *         description: Returned array
@@ -90,10 +110,10 @@ import saveController from '../controllers/avito_apart_new_building/save.control
 
 const router = Router()
 
-router.get('/get-feed',
-    query("userId").isLength({ min: 1, max: 5 }),
-    query("login").isLength({ min: 1, max: 50 }),
-    query("service").isLength({ min: 1, max: 50 }),
-    saveController.getAll)
+router.post('/get-feed',
+  body("userId").exists().isLength({ min: 1, max: 5 }),
+  body("login").exists().isLength({ min: 1, max: 50 }),
+  body("service").exists().isLength({ min: 1, max: 50 }),
+  saveController.getAll)
 
 export default router

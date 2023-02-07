@@ -72,3 +72,5 @@ export interface AvitoFeedI {
     ShareholderPatronymic?: AvitoJKeyI
     ShareholderINN?: AvitoJKeyI
 }
+
+type StatusObjectType = "Квартира" | "Апартаменты"

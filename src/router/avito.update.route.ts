@@ -2,6 +2,7 @@ import { Router, Request } from 'express'
 import { body } from 'express-validator'
 import updateController from '../controllers/avito_apart_new_building/update.controller'
 
+
 /**
  * @swagger
  * components:

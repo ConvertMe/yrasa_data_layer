@@ -11,31 +11,15 @@ class GetData {
         try {
             const data = await this.getDate(userDate)
 
-            if(userDate.limitAndPage) {
-                let [limit, page] = userDate.limitAndPage
-
-            return this.paginate(data, page, limit)
-
-            } else return this.paginate(data)
-
-        } catch (e) {
-            throw e
-        }
-    }
-
-    async getById(userDate: userDateI, filters: any) {
-        try {
-            const data = await this.getDate(userDate)
-
-            const newData = filtersService.byId(data, filters)
+            const dataAfterFiltering = filtersService.parseFilters(data, userDate.filters)
 
             if(userDate.limitAndPage) {
                 let [limit, page] = userDate.limitAndPage
 
-            return this.paginate(newData, page, limit)
+            return this.paginate(dataAfterFiltering, page, limit)
 
-            } else return this.paginate(data)
-            
+            } else return this.paginate(dataAfterFiltering)
+
         } catch (e) {
             throw e
         }
