@@ -1,7 +1,7 @@
 
 import ApiError from "../../exceptions/api-error"
 import { RequestFiltersType } from "../../router/type"
-import { nameFiltersParams } from "../../settings/avito/sell.new.building.avito.data"
+import { nameFiltersParams, rooms } from "../../settings/avito/sell.new.building.avito.data"
 import { AvitoFeedI } from "../../settings/types"
 import { FiltersType } from "../types"
 
@@ -37,7 +37,11 @@ class FiltersService {
                     break
                 case "byDescription":
                     const regular = new RegExp(params[1])
-                    responseData = object.filter(e => regular.test(e.Description._text)) as AvitoFeedI[]
+                    responseData = object.filter(e => regular.test(e.Description._text))
+                    break
+                case "byRooms":
+                    if(!rooms.includes(String(params[1]))) break
+                    responseData = object.filter(e =>  e.Rooms._text == String(params[1]))
                     break
                 default: break
             }
@@ -78,8 +82,7 @@ class FiltersService {
             })
             if(filters.minMax) filters.minMax.forEach(e => {
                 if(!nameFiltersParams.includes(e[0]) || !e[1] || !e[2]) errorsKeys.push(e[0])
-            })
-            
+            })  
             if(errorsKeys.length > 0) throw ApiError.BadRequest("err32", errorsKeys)
         } catch (e) {
             throw e

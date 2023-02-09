@@ -8,6 +8,7 @@ import avitoGetRoute from './router/avito.get.route'
 import avitoUpdateRoute from './router/avito.update.route'
 import errorMiddleware from "./midlewares/error-middleware"
 import path from 'path'
+import NewDevelopmentIdService from './service/avito_apart_new_building/NewDevelopmentId.service'
 
 dotenv.config()
 
@@ -47,8 +48,9 @@ app.use('/api', avitoGetRoute)
 app.use('/api', avitoUpdateRoute)
 app.use(errorMiddleware)
 
-const start = () => {
+const start =  async () => {
     try {
+		NewDevelopmentIdService.getAndSaveIds()
         app.listen(PORT, () => console.log('Server started on port: ' + PORT))
     } catch (e) {
         console.error(e)
