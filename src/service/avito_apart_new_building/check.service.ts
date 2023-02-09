@@ -49,15 +49,15 @@ class CheackAvitoService {
 
     checkReqUpdateValues(paramsUpdate: ReqUpdateAvitoType) {
         try {
-            let errors: { teg: string, value: string }[] = []
+            let errors: { tag: string, value: string }[] = []
 
             paramsUpdate.updateValues.forEach((updateE: UpdateAvitoValuesType) => {
 
-                if (this.matchCheckParamName(updateE.key)) errors.push({ teg: updateE.key, value: updateE.values[0] })
+                if (this.matchCheckParamName(updateE.key)) errors.push({ tag: updateE.key, value: updateE.values[0] })
 
                 paramsUpdate.updateValues.forEach(e => {
-                    if (e.teg) {
-                        this.matchCheckTag(e.key, e.teg)
+                    if (e.tag) {
+                        this.matchCheckTag(e.key, e.tag)
                         this.matchCheckValues(e.key, e.values)
                     }
                 })

@@ -17,7 +17,7 @@ export type ReqUpdateAvitoType = {
 export type UpdateAvitoValuesType = {
     id: string
     key: string
-    teg?: string
+    tag?: string
     attr?: string
     values: string[]
 }

@@ -34,6 +34,9 @@ import updateController from '../controllers/avito_apart_new_building/update.con
  *               key:
  *                 type: string
  *                 example: Status
+ *               tag:
+ *                 type: string
+ *                 example: url
  *               attr:
  *                 type: string
  *                 example: Options
