@@ -32,4 +32,5 @@ export default [
     {id: 31, erroCode: "err31", errorCode: "/api/update-feed - avito/cheack/service", comment: "invalid tegs"},
     {id: 32, erroCode: "err32", errorCode: "/api/get-feed - avito/filters/service", comment: "invalid keys filter"},
     {id: 33, erroCode: "err33", errorCode: "NewDevelopmentId/service", comment: "error download NewDevelopmentId"},
+    {id: 34, erroCode: "err34", errorCode: "/api/get-feed - update/service", comment: "None of the objects were updated"},
 ] 

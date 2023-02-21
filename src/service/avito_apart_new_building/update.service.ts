@@ -11,8 +11,6 @@ class UpdateData {
 
     async update(paramsUpdate: ReqUpdateAvitoType) {
         try {
-
-
             if (!paramsUpdate || !paramsUpdate.pathToFile) throw ApiError.BadRequest("Invalid path", "err21")
             let json: null | string = null
 
@@ -26,7 +24,7 @@ class UpdateData {
 
             if (!json) throw ApiError.ErrorReadFile("err23")
 
-            let resultObj: null | { newData: FileAvitoI, dataWasBeenChanged: string[] } = null
+            let resultObj: null | { newData: FileAvitoI, dataWasBeenChanged: string[]} = null
 
             try {
                 resultObj = this.updateObject(JSON.parse(json), paramsUpdate)
@@ -35,6 +33,7 @@ class UpdateData {
             }
 
             if (!resultObj) throw ApiError.ErrorUpdateFile("err25")
+            if(resultObj.dataWasBeenChanged.length === 0) throw ApiError.BadRequest("err34")
 
             try {
                 fs.writeFileSync(paramsUpdate.pathToFile, JSON.stringify(resultObj.newData))
@@ -53,7 +52,7 @@ class UpdateData {
         try {
 
             let newData: FileAvitoI = oldData
-            let dataWasBeenChanged: string[] = []
+            let dataWasBeenChanged: any[] = []
 
             //map to params
             paramsUpdate.updateValues.forEach((upValues: UpdateAvitoValuesType) => {
@@ -65,11 +64,8 @@ class UpdateData {
                         //Change object
                         for (let key in newData.Ads.Ad[i]) {
 
-                            if (key === upValues.key) {
-                                if (upValues.tag) {
-                                    //if attribute to find key and push new values
-                                    //@ts-ignore
-
+                            if (key === upValues.key) {                                
+                                if (upValues.tag) {                                    
                                     //images has atrr
                                     //@ts-ignore
                                     if (upValues.key === "Images") {
@@ -79,9 +75,11 @@ class UpdateData {
                                         for (let iImg = 0; iImg < upValues.values.length; iImg++) {
                                             images.push({ _attributes: { url: upValues.values[iImg] } })
                                         }
-
+                                        
                                         //@ts-ignore                                                
                                         newData.Ads.Ad[i][key][upValues.tag] = images
+                                        
+                                        dataWasBeenChanged.push(upValues.id)
                                     } else {
                                         let tags = []
                                         //create array images
@@ -92,20 +90,20 @@ class UpdateData {
 
                                         //@ts-ignore        
                                         newData.Ads.Ad[i][key][upValues.tag] = tags
+                                        dataWasBeenChanged.push(upValues.id)
                                     }
 
 
                                 } else {
                                     //@ts-ignore
                                     newData.Ads.Ad[i][key]._text = upValues.values[0]
-                                    dataWasBeenChanged.push(upValues.values[0])
+                                    dataWasBeenChanged.push(upValues.id)
                                 }
                             }
                         }
                     }
                 }
             })
-
             return { newData, dataWasBeenChanged }
         } catch (e) {
             throw ApiError.ErrorUpdateFile("err24")

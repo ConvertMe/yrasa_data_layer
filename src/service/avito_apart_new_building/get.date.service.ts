@@ -31,7 +31,7 @@ class GetData {
 
             let fd = fs.readdirSync(path.join(__dirname, "..", "..", "data", "avito"))
     
-            const regular = new RegExp(`${userDate.userId}&${userDate.login}&${userDate.service}*`)
+            const regular = new RegExp(`${userDate.userId}&${userDate.email}&${userDate.service}*`)
     
             fd.forEach((e) => {
                 if(regular.test(e)) pathToFile = e

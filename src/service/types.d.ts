@@ -3,14 +3,14 @@ import { RequestFiltersType } from "../router/type"
 export interface PayloadDataI {
     path: string
     userId: number
-    login: string
+    email: string
     service: string
     createdAt: string
 }
 
 export interface userDateI {
     userId: string | QueryString.ParsedQs
-    login: string | QueryString.ParsedQs
+    email: string | QueryString.ParsedQs
     service: string | QueryString.ParsedQs
     limitAndPage?: number[]
     filters: RequestFiltersType

@@ -112,7 +112,7 @@ const router = Router()
 
 router.post('/get-feed',
   body("userId").exists().isLength({ min: 1, max: 5 }),
-  body("login").exists().isLength({ min: 1, max: 50 }),
+  body("email").exists().isLength({ min: 1, max: 50 }),
   body("service").exists().isLength({ min: 1, max: 50 }),
   saveController.getAll)
 

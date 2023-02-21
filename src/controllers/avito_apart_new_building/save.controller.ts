@@ -13,9 +13,9 @@ class DataController {
     async parseFeed(req: Request, res: Response, next: NextFunction) {
 
         try {
-            if(!req.body || !req.body.userId || !req.body.login || !req.body.service) {
+            if(!req.body || !req.body.userId || !req.body.email || !req.body.service) {
                 if(req.file?.path) fs.unlinkSync(req.file.path)
-                return next(ApiError.BadRequest("Invalid values userId, login, service", ["err16"]))
+                return next(ApiError.BadRequest("Invalid values userId, email, service", ["err16"]))
             }
 
             if (!req.file || !req.file.path) return next(ApiError.BadRequest("Invalid file", ["err1"]))
@@ -29,12 +29,12 @@ class DataController {
 
             if(!accessToken || accessToken !== process.env.ACCESS_SECRET_KEY) return next(ApiError.UnauthorizedError("err4"))
 
-            const { userId, login, service } = req.body
+            const { userId, email, service } = req.body
 
 
             const payload: PayloadDataI = {
                 path: req.file.path,
-                userId, login, service, 
+                userId, email, service, 
                 createdAt: new Date().toISOString().slice(0, 19).replace('T', '_').replace(":", "-").replace(":", "-") 
             }
 
@@ -61,12 +61,12 @@ class DataController {
                 return next(ApiError.BadRequest("Invalid value", errors.array()))
             }
 
-            const {userId, login, service} = req.body
+            const {userId, email, service} = req.body
             let limitAndPage: null | any[] = null
             if(req.query.limit && req.query.page) limitAndPage = [Number(req.query.limit), Number(req.query.page)]
 
             const paramsUser: any = {
-                userId, login, service, limitAndPage, 
+                userId, email, service, limitAndPage, 
                 filters: {...req.body.filters}
             }
 
