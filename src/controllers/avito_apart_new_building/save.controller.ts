@@ -56,18 +56,15 @@ class DataController {
     async getAll (req: Request, res: Response, next: NextFunction) {
         try {
             const errors = validationResult(req)
-    
             if(!errors.isEmpty()) {
                 return next(ApiError.BadRequest("Invalid value", errors.array()))
             }
 
-            const {userId, email, service} = req.body
-            let limitAndPage: null | any[] = null
-            if(req.query.limit && req.query.page) limitAndPage = [Number(req.query.limit), Number(req.query.page)]
+            const {userId, email, service, filters} = req.body
+            let limitAndPage = [Number(req.body.limit), Number(req.body.page)]
 
             const paramsUser: any = {
-                userId, email, service, limitAndPage, 
-                filters: {...req.body.filters}
+                userId, email, service, limitAndPage, filters
             }
 
             return responseToClient(200, await getDateService.getAll(paramsUser), res)

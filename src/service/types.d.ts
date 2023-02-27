@@ -16,4 +16,4 @@ export interface userDateI {
     filters: RequestFiltersType
 }
 
-export type FiltersType = "byId" | "byName" | "byDescription" | "byPrice" | "bySquare" | "byFloor" | "byRooms"
+export type FiltersType = "byId" | "byStatusObject" | "byStatusPublic" | "byRoom" | "byComplex" | "byAdres" | "byWords" | "byPrice" | "bySquare" | "byFloor"
