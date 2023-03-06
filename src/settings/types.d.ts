@@ -37,7 +37,7 @@ export interface AvitoFeedI {
     ContactPhone?: AvitoJKeyI
     Description: AvitoJKeyI
     Images?: AttrImageI
-    VideoUR?: AvitoJKeyI
+    VideoURL?: AvitoJKeyI
     ContactMethod?: AvitoJKeyI
     Category: AvitoJKeyI
     Price: AvitoJKeyI

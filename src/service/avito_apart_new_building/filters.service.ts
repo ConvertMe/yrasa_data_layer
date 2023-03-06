@@ -17,7 +17,7 @@ class FiltersService {
             
             responseData = this.byArgument(responseData, e)
         })
-
+        
         if (filtersValidate.byMinMax.length > 0) filtersValidate.byMinMax.forEach(e => {
             //min-max filters
             responseData = this.minMax(responseData, e)
@@ -58,7 +58,6 @@ class FiltersService {
     
     private minMax(object: AvitoFeedI[], params: [index: FiltersType, o: number, t: number]): AvitoFeedI[] {
         try {
-
             const checkNumbers = (values: string, params: [index: FiltersType, o: number, t: number] ) => {
                 if(params[1] && params[2]) {
                     if( Number(values) >= params[1] && Number(values) <= params[2]) return true
@@ -99,7 +98,7 @@ class FiltersService {
                 if(!nameFiltersParams.includes(e[0])) errorsKeys.push(e[0])
                 if( e[1]) byArgument.push(e)
             })
-            if(filters.minMax) filters.minMax.forEach(e => {
+            if(filters.byMinMax) filters.byMinMax.forEach(e => {
                 if(!nameFiltersParams.includes(e[0])) errorsKeys.push(e[0])
                 if(e[0], e[1] || e[2]) byMinMax.push(e)
             })  

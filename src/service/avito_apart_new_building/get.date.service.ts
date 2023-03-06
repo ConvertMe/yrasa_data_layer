@@ -1,15 +1,16 @@
 import fs from "fs"
 import path from "path"
 import ApiError from "../../exceptions/api-error"
-import { userDateI } from "../types"
+import { UserDateGetAllI, UserDateGetOneI, userDateI } from "../types"
 import filtersService from "./filters.service"
+import {AvitoFeedI} from "../../settings/types"
 
 
 class GetData {
 
-    async getAll(userDate: userDateI) {
+    async getAll(userDate: UserDateGetAllI) {
         try {
-            const data = await this.getDate(userDate)
+            const data: AvitoFeedI[] = await this.getDate(userDate)
 
             const dataAfterFiltering = filtersService.parseFilters(data, userDate.filters)
 
@@ -19,6 +20,16 @@ class GetData {
             return this.paginate(dataAfterFiltering, page, limit)
 
             } else return this.paginate(dataAfterFiltering)
+
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async getOne(userDate: UserDateGetOneI) {
+        try {
+            const data: AvitoFeedI[] = await this.getDate(userDate)
+            return data.filter(e => e.Id._text === userDate.id)
 
         } catch (e) {
             throw e
